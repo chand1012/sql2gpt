@@ -23,3 +23,4 @@ python_version = "3.11"
 [scripts]
 build = "python -m build"
 clean = "rm -rf dist sql2gpt.egg-info"
+upload = "twine upload dist/*"
