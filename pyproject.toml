@@ -17,7 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 dependencies = ["sqlalchemy", "psycopg2-binary", "mysqlclient", "fire"]
-version = "0.3.0"
+version = "0.3.1"
 
 [project.urls]
 Source = "https://github.com/chand1012/sql2gpt"
