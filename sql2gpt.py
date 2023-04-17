@@ -23,7 +23,7 @@ def get_schemas(database_url):
         schemas.append(schema_string)
 
     print("Done")
-    print('-'*80)
+    print('-'*72)
     return schemas
 
 
