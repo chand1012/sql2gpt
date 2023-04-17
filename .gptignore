@@ -3,3 +3,5 @@ Pipfile.lock
 .gitignore
 .gptignore
 LICENSE
+tapes/**
+env/**

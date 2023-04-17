@@ -1,2 +1,4 @@
 __pycache__/**
 env
+sql2gpt.egg-info
+dist

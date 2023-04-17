@@ -1,3 +1,5 @@
+from typing import Union
+
 import fire
 from sqlalchemy import create_engine, MetaData, Table, inspect
 
@@ -32,7 +34,7 @@ class SQL2GPT:
         self.config = config.load()
         self.prompt = "I have a {} SQL database. I am going to give you the schema in the following format: table_name(column_name column_type, column_name column_type, ...), followed by END. After END, you will be given instructions on how to use the schema information. Here is the schema:\n\n{}\nEND"
 
-    def get_uri(self, i) -> str | None:
+    def get_uri(self, i) -> Union[str, None]:
         database_url = i
         if not is_uri(database_url):
             database_url = self.config.get(database_url, None)
@@ -58,5 +60,9 @@ class SQL2GPT:
         print("Database added successfully.")
 
 
-if __name__ == "__main__":
+def main():
     fire.Fire(SQL2GPT)
+
+
+if __name__ == "__main__":
+    main()
