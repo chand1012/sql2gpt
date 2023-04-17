@@ -14,7 +14,7 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.10",
 ]
 dependencies = ["sqlalchemy", "psycopg2-binary", "mysqlclient", "fire"]
 version = "0.2.0"
