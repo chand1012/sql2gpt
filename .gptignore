@@ -1,0 +1,5 @@
+Pipfile.lock
+.vscode/**
+.gitignore
+.gptignore
+LICENSE
