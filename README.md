@@ -16,36 +16,40 @@ SQL2GPT is a Python-based tool that extracts the schema of a SQL database and ge
 
 ## Prerequisites
 
-* Python 3.11 or higher
-* MySQL client (for MySQL databases)
-* Pipenv: A Python dependency management tool
+* Python 3.10 or higher
 
 ## Installation
 
-First, clone the repository:
+### Via uvx (no install needed)
+
+```bash
+uvx sql2gpt get_prompt postgresql://user:pass@localhost/mydb
+```
+
+### Via pip/uv
+
+```bash
+pip install sql2gpt
+# or
+uv pip install sql2gpt
+```
+
+### From source
 
 ```bash
 git clone https://github.com/chand1012/sql2gpt.git
 cd sql2gpt
+uv sync
+uv run sql2gpt --help
 ```
 
-Ensure that you have pipenv installed. If you don't have it installed, you can install it using pip:
+## Database URLs
 
-```bash
-pip install pipenv
-```
+- PostgreSQL: `postgresql://user:pass@localhost/dbname`
+- MySQL: `mysql+pymysql://user:pass@localhost/dbname`
+- SQLite: `sqlite:///path/to/db.sqlite`
 
-Once you have pipenv installed, set up the environment and install the dependencies:
-
-```bash
-pipenv install
-```
-
-To activate the virtual environment, run:
-
-```bash
-pipenv shell
-```
+**Note:** MySQL URLs must use `mysql+pymysql://` prefix (not just `mysql://`).
 
 ## Usage
 
@@ -54,34 +58,30 @@ pipenv shell
 Add a new database connection by running:
 
 ```bash
-python sql2gpt.py add <name> <database_uri>
+sql2gpt add <name> <database_uri>
 ```
 
-Where `<name>` is the name you want to give to the connection, and `<database_uri>` is the URI for the database, such as:
-
-* PostgreSQL: `postgresql://username:password@localhost/dbname`
-* MySQL: `mysql://username:password@localhost/dbname`
-* SQLite: `sqlite:///example.db`
+Where `<name>` is the name you want to give to the connection, and `<database_uri>` is the URI for the database.
 
 ### Printing the Schema
 
 To print the schema of a database, run:
 
 ```bash
-python sql2gpt.py print_schema <database_url or name>
+sql2gpt print_schema <database_url or name>
 ```
 
-Replace <database_url> with the appropriate database URL for your SQL database or the name of the connection you added previously.
+Replace `<database_url>` with the appropriate database URL for your SQL database or the name of the connection you added previously.
 
 ### Generating the ChatGPT Prompt
 
 To generate the ChatGPT prompt for a given database, run:
 
 ```bash
-python sql2gpt.py get_prompt <database_url or name>
+sql2gpt get_prompt <database_url or name>
 ```
 
-Replace <database_url> with the appropriate database URL for your SQL database or the name of the connection you added previously. The generated prompt can be passed to ChatGPT to obtain code or ask questions about the database.
+Replace `<database_url>` with the appropriate database URL for your SQL database or the name of the connection you added previously. The generated prompt can be passed to ChatGPT to obtain code or ask questions about the database.
 
 ## License
 

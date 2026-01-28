@@ -3,16 +3,18 @@ from typing import Union
 import fire
 from sqlalchemy import create_engine, MetaData, Table, inspect
 
-import config
-from util import get_db_type, is_uri
+from sql2gpt import config
+from sql2gpt.util import get_db_type, is_uri
 
 
-def get_schemas(database_url):
-    print("Connecting to database...")
+def get_schemas(database_url, quiet=False):
+    if not quiet:
+        print("Connecting to database...")
     engine = create_engine(database_url)
     meta = MetaData()
 
-    print("Inspecting database...")
+    if not quiet:
+        print("Inspecting database...")
     inspector = inspect(engine)
     schemas = []
     for table_name in inspector.get_table_names():
@@ -24,8 +26,9 @@ def get_schemas(database_url):
         schema_string += ", ".join(columns) + ")"
         schemas.append(schema_string)
 
-    print("Done")
-    print('-'*72)
+    if not quiet:
+        print("Done")
+        print('-'*72)
     return schemas
 
 
@@ -58,6 +61,21 @@ class SQL2GPT:
     def add(self, name: str, database_uri: str):
         config.add(name, database_uri)
         print("Database added successfully.")
+
+    def serve(self, transport: str = "stdio", host: str = "127.0.0.1", port: int = 8000):
+        """Start the MCP server.
+
+        Args:
+            transport: Transport mode - 'stdio' (default) or 'http'
+            host: Host for HTTP transport (default: 127.0.0.1)
+            port: Port for HTTP transport (default: 8000)
+        """
+        from sql2gpt.mcp_server import mcp
+
+        if transport == "http":
+            mcp.run(transport="http", host=host, port=port)
+        else:
+            mcp.run()
 
 
 def main():
